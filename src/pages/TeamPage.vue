@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-name: "team.vue"
+name: "Team"
 
 </script>
 

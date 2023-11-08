@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-name: "index.vue"
+name: "Index"
 
 </script>
 
