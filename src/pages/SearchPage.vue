@@ -1,5 +1,10 @@
 <script setup lang="ts">
+
+
 import {ref} from 'vue';
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const searchText = ref('');
 
@@ -57,6 +62,17 @@ const doclose = (tag) => {
 
 }
 
+//当用户执行搜索后
+const doSearchResult = () => {
+  router.push({
+    path: '/user/list',
+    query: {
+      tags: activeIds.value
+
+    }
+  })
+}
+
 </script>
 
 <template>
@@ -87,6 +103,7 @@ const doclose = (tag) => {
       :items="tagList"
   />
 
+  <van-button type="primary" @click="doSearchResult">搜索</van-button>
 </template>
 
 <style scoped>
