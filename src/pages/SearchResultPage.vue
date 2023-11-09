@@ -17,11 +17,30 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
+import myAxios from "../plugins/myAxios.js";
 
 const route = useRoute();
+
 const {tags} = route.query;
+
+
+onMounted(() => {
+  myAxios.get('/user/search/tags', {
+    params: {
+      tagNameList: tags
+
+    }
+  })
+      .then(function (response) {
+        console.log('/user/search/tags succeed',response);
+      })
+      .catch(function (error) {
+        console.error ('/user/search/tags error',error);
+      });
+})
+
 
 const mockUser = ref({
   id: 931,
