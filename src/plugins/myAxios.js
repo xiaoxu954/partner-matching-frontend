@@ -3,14 +3,14 @@ import axios from "axios";
 
 const myAxios = axios.create({
     baseURL: 'http://localhost:8080/api',
-    timeout: 1000,
+    timeout: 10000,
 });
 
-
+myAxios.defaults.withCredentials=true;
 
 // 添加请求拦截器
 myAxios.interceptors.request.use(function (config) {
-    console.log('要发送请求前+',config)
+    console.log('要发送请求前+', config)
     // 在发送请求之前做些什么
     return config;
 }, function (error) {
@@ -20,12 +20,16 @@ myAxios.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 myAxios.interceptors.response.use(function (response) {
-    console.log('收到后端响应+',response)
+    console.log('收到后端响应+', response)
     // 对响应数据做点什么
-    return response;
+    return response.data;
 }, function (error) {
     // 对响应错误做点什么
     return Promise.reject(error);
-});
+
+
+})
+
+;
 
 export default myAxios;
