@@ -5,7 +5,7 @@ import App from './App.vue'
 
 // @ts-ignore
 import * as VueRouter from 'vue-router';
-import routes from "./config/router";
+import routes from "./config/route.ts";
 
 import Vant from 'vant';
 import 'vant/lib/index.css' // 全局引入要添加这个样式

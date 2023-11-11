@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {ref} from "vue";
-import myAxios from "../plugins/myAxios.js";
-import {useRouter} from "vue-router";
 
+import {useRouter} from "vue-router";
+import {ref} from "vue";
+import myAxios from "../plugins/myAxios.ts";
 
 const router = useRouter();
 
@@ -11,13 +11,13 @@ const userPassword = ref('');
 
 
 const onSubmit = async () => {
-  const res = await myAxios.post('/user/login',{
+  const res = await myAxios.post('/user/login', {
     userAccount: userAccout.value,
     userPassword: userPassword.value,
   })
-  console.log(res,'用户登录');
+  console.log(res, '用户登录');
 
-  if (res.code == 0 && res.data){
+  if (res.code == 0 && res.data) {
     console.log('登录成功');
     router.replace('/')
 
@@ -35,7 +35,7 @@ const onSubmit = async () => {
           round
           width="10rem"
           height="10rem"
-          src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+          src="https://img.zcool.cn/community/01d2125e130953a80120a89587d6aa.png@1280w_1l_2o_100sh.png"
       />
 
     </div>
