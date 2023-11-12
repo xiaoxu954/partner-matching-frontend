@@ -1,10 +1,11 @@
 <script setup lang="ts">
 
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
 
 const router = useRouter();
+const route = useRoute();
 
 const userAccout = ref('');
 const userPassword = ref('');
@@ -19,8 +20,8 @@ const onSubmit = async () => {
 
   if (res.code == 0 && res.data) {
     console.log('登录成功');
-    router.replace('/')
-
+    const redirectUrl = route.query?.redirect as string ?? '/';
+    window.location.href = redirectUrl;
   } else {
     console.log('登录失败');
   }
