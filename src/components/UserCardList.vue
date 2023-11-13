@@ -13,11 +13,13 @@ const props = withDefaults(defineProps<UserCardListProps>(), {
 });
 
 </script>
+
 <template>
-  <van-skeleton title avatar :row="3" :loading="props.loading" v-for="user in props.userList">
+
     <van-card
+        v-for="user in props.userList"
         :desc="user.profile"
-        :title="`${user.username}（${user.planetCode}）`"
+        :title="user.username"
         :thumb="user.avatarUrl"
     >
       <template #tags>
@@ -25,11 +27,12 @@ const props = withDefaults(defineProps<UserCardListProps>(), {
           {{ tag }}
         </van-tag>
       </template>
+
       <template #footer>
         <van-button size="mini">联系我</van-button>
       </template>
     </van-card>
-  </van-skeleton>
+
 </template>
 <style scoped>
 
