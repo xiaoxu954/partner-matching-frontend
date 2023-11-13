@@ -11,12 +11,15 @@ const userList = ref([]);
 
 // 使用钩子函数
 onMounted(async () => {
+  // 普通模式，直接分页查询用户  为给定id的user创建请求
   const userListData = await myAxios.get('/user/recommend', {
+    withCredentials: true,
     params: {
       pageSize: 8,
       pageNum: 1,
     },
   })
+
       .then(function (response) {
         console.log('/user/recommend succeed', response);
         return response?.data?.records;
