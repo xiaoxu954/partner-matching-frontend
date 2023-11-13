@@ -12,11 +12,14 @@ const userList = ref([]);
 // 使用钩子函数
 onMounted(async () => {
   const userListData = await myAxios.get('/user/recommend', {
-    params: {},
+    params: {
+      pageSize: 8,
+      pageNum: 1,
+    },
   })
       .then(function (response) {
         console.log('/user/recommend succeed', response);
-        return response?.data;
+        return response?.data?.records;
       })
       .catch(function (error) {
         console.error('/user/recommend', error);
@@ -57,21 +60,21 @@ onMounted(async () => {
   <user-card-list :user-list="userList" :loading="loading"/>
 
   <van-empty v-if="!userList || userList.length < 1" description="数据为空"/>
-<!--    <van-card-->
-<!--        v-for="user in userList"-->
-<!--        :desc="`666${user.profile}`"-->
-<!--        :title="`${user.username}`"-->
-<!--        :thumb="user.avatarUrl"-->
-<!--    >-->
-<!--      <template #tags>-->
-<!--        <van-tag plain type="danger" v-for="tag in tags" style="margin-right: 8px; margin-top: 8px">-->
-<!--          {{ tag }}-->
-<!--        </van-tag>-->
-<!--      </template>-->
-<!--      <template #footer>-->
-<!--        <van-button size="mini">联系我</van-button>-->
-<!--      </template>-->
-<!--    </van-card>-->
+  <!--    <van-card-->
+  <!--        v-for="user in userList"-->
+  <!--        :desc="`666${user.profile}`"-->
+  <!--        :title="`${user.username}`"-->
+  <!--        :thumb="user.avatarUrl"-->
+  <!--    >-->
+  <!--      <template #tags>-->
+  <!--        <van-tag plain type="danger" v-for="tag in tags" style="margin-right: 8px; margin-top: 8px">-->
+  <!--          {{ tag }}-->
+  <!--        </van-tag>-->
+  <!--      </template>-->
+  <!--      <template #footer>-->
+  <!--        <van-button size="mini">联系我</van-button>-->
+  <!--      </template>-->
+  <!--    </van-card>-->
 
 
 </template>
