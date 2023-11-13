@@ -18,6 +18,11 @@ export default defineConfig({
             ]
         }),
     ],
+    // server: {
+    //     host: '0.0.0.0', //ip地址
+    //     port: 8080, //端口号
+    //     open: true //启动后是否自动打开浏览器
+    // }
     server: {
         port: 3000,
     }

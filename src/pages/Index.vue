@@ -28,7 +28,6 @@ onMounted(async () => {
         console.error('/user/recommend', error);
         console.log('请求失败');
       })
-  console.log(userListData)
   if (userListData) {
     userListData.forEach(user => {
       if (user.tags) {

@@ -20,6 +20,7 @@ const onSubmit = async () => {
 
   if (res.code == 0 && res.data) {
     console.log('登录成功');
+    //跳转到之前界面
     const redirectUrl = route.query?.redirect as string ?? '/';
     window.location.href = redirectUrl;
   } else {
@@ -36,7 +37,7 @@ const onSubmit = async () => {
           round
           width="10rem"
           height="10rem"
-          src="https://img.zcool.cn/community/01d2125e130953a80120a89587d6aa.png@1280w_1l_2o_100sh.png"
+          src=""
       />
 
     </div>
@@ -57,9 +58,11 @@ const onSubmit = async () => {
           :rules="[{ required: true, message: '请填写密码' }]"
       />
     </van-cell-group>
+
+
     <div style="margin: 16px;">
       <van-button round block type="primary" native-type="submit">
-        提交
+        登录
       </van-button>
     </div>
   </van-form>
