@@ -13,6 +13,7 @@ const initFormData = {
   "maxNum": 3,
   "password": "",
   "status": 0,
+
 }
 //用户填写的表单数据
 const addTeamData = ref({...initFormData});
