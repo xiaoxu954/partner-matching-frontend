@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
 
 
@@ -22,7 +23,7 @@ const teamText = ref('')
  * @param val
  */
 const listTeam = async (val = '') => {
-  const res = await myAxios.get('/team/list', {
+  const res = await myAxios.get('/team/list/my/create', {
     params: {
       searchText: val,
       pageNum: 1,

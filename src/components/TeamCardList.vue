@@ -2,6 +2,10 @@
 import {TeamType} from "../models/team";
 import {teamStatusEnum} from "../constants/team";
 import myAxios from "../plugins/myAxios";
+import {onMounted, ref} from "vue";
+import {getCurrentUser} from "../services/user.ts";
+import {useRouter} from "vue-router";
+
 
 interface TeamCardListProps {
   teamList: TeamType[];
@@ -12,8 +16,17 @@ const props = withDefaults(defineProps<TeamCardListProps>(), {
   teamList: [] as TeamType[],
 });
 
+const currentUser = ref();
+const router = useRouter();
 
-//队伍列表加入队伍
+onMounted(async () => {
+  currentUser.value = await getCurrentUser();
+});
+
+/**
+ * 加入队伍
+ * @param id
+ */
 const doJoinTeam = async (id: number) => {
   const res = await myAxios.post("/team/join", {
     teamId: id
@@ -24,6 +37,20 @@ const doJoinTeam = async (id: number) => {
     console.log("加入失败" + (res.description ? `， ${res.description} ` : ''));
   }
 }
+
+/**
+ * 跳转至更新队伍页
+ * @param id
+ */
+const doUpdateTeam = (id: number) => {
+  router.push({
+    path: '/team/update',
+    query: {
+      id,
+    }
+  })
+}
+
 
 </script>
 
@@ -36,7 +63,7 @@ const doJoinTeam = async (id: number) => {
     <van-card
         v-for="team in props.teamList"
         :desc="team.description"
-        thumb="src/assets/study.png"
+        thumb="null"
         :title="`${team.name} `"
     >
       <template #tags>
@@ -58,11 +85,24 @@ const doJoinTeam = async (id: number) => {
         </div>
 
       </template>
+
       <template #footer>
         <van-button size="mini" plain type="primary" @click="doJoinTeam(team.id)">加入队伍</van-button>
+        <van-button v-if="team.userId === currentUser?.id " size="mini" plain
+                    @click="doUpdateTeam(team.id)">更新队伍
+        </van-button>
+
+        <van-button v-if="team.userId === currentUser?.id " size="mini" plain
+                    @click="doUpdateTeam(team.id)">退出队伍
+        </van-button>
+
+        <van-button v-if="team.userId === currentUser?.id " size="mini" plain
+                    @click="doUpdateTeam(team.id)">解散队伍
+        </van-button>
       </template>
     </van-card>
   </div>
+
 </template>
 <style scoped>
 #teamCardList :deep(.van-image__img) {

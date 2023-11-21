@@ -1,10 +1,11 @@
+TeamPage.vue
 <script setup lang="ts">
 
 
 import {useRouter} from "vue-router";
-import TeamCardList from "../components/TeamCardList.vue";
 import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
+import TeamCardList from "../components/TeamCardList.vue";
 
 const router = useRouter();
 
@@ -22,7 +23,7 @@ const teamText = ref('')
  * @param val
  */
 const listTeam = async (val = '') => {
-  const res = await myAxios.get('/team/list', {
+  const res = await myAxios.get('/team/list/my/join', {
     params: {
       searchText: val,
       pageNum: 1,
