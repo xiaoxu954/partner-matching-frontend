@@ -11,7 +11,7 @@ const router = useRouter();
 
 const doJoinTeam = () => {
   router.push({
-    path: "/team/add"
+    path: "/team  "
   })
 }
 const teamList = ref([]);

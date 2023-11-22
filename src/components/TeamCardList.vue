@@ -51,6 +51,36 @@ const doUpdateTeam = (id: number) => {
   })
 }
 
+/**
+ * 退出队伍
+ * @param id
+ */
+const doQuitTeam = async (id: number) => {
+  const res = await myAxios.post("/team/quit", {
+    teamId: id
+  });
+  if (res?.code === 0) {
+    console.log("操作成功")
+  } else {
+    console.log("操作失败");
+  }
+}
+
+/**
+ * 解散队伍
+ * @param id
+ */
+const doDeleteTeam = async (id: number) => {
+  const res = await myAxios.post("/team/delete", {
+    id,
+  });
+  if (res?.code === 0) {
+    console.log("操作成功")
+  } else {
+    console.log("操作失败");
+  }
+}
+
 
 </script>
 
@@ -93,11 +123,11 @@ const doUpdateTeam = (id: number) => {
         </van-button>
 
         <van-button v-if="team.userId === currentUser?.id " size="mini" plain
-                    @click="doUpdateTeam(team.id)">退出队伍
+                    @click="doQuitTeam(team.id)">退出队伍
         </van-button>
 
         <van-button v-if="team.userId === currentUser?.id " size="mini" plain
-                    @click="doUpdateTeam(team.id)">解散队伍
+                    @click="doDeleteTeam(team.id)">解散队伍
         </van-button>
       </template>
     </van-card>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" xmlns:text-align="http://www.w3.org/1999/xhtml">
 
 import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
@@ -28,6 +28,15 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
 </script>
 
 <template v-if="user">
+
+  <van-image
+      round
+      width="10rem"
+      height="10rem"
+      :src="user?.avatarUrl"
+      position="center"
+  />
+
   <van-cell title="头像" is-link to="/user/edit">
     <img style="height: 48px" :src="user?.avatarUrl"/>
   </van-cell>
