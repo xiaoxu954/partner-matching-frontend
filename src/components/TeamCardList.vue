@@ -122,6 +122,7 @@ const doDeleteTeam = async (id: number) => {
                     @click="doUpdateTeam(team.id)">更新队伍
         </van-button>
 
+<!--        todo 仅加入队伍可见-->
         <van-button v-if="team.userId === currentUser?.id " size="mini" plain
                     @click="doQuitTeam(team.id)">退出队伍
         </van-button>

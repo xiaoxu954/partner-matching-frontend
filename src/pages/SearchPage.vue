@@ -65,7 +65,8 @@ const doSearchResult = () => {
   router.push({
     path: '/user/list',
     query: {
-      tags: activeIds.value
+      tags: activeIds.value,
+
     }
   })
 }

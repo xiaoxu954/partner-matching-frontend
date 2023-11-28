@@ -19,7 +19,7 @@ const teamText = ref('')
 
 
 /**
- * 搜索队伍
+ * 搜索我加入的队伍
  * @param val
  */
 const listTeam = async (val = '') => {

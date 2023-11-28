@@ -38,6 +38,7 @@ onMounted(async () => {
   user.value = await getCurrentUser();
 })
 
+
 const router = useRouter();
 
 const toEdit = (editKey: string, editName: string, currentValue: string) => {

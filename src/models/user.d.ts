@@ -1,7 +1,7 @@
 /**
  * 用户类别
  */
-export type userType = {
+export type UserType = {
     id: number;
     username: string;
     userAccount: string;
@@ -12,6 +12,6 @@ export type userType = {
     email: string;
     userStatus: number;
     userRole: number;
-    tags: string[];
+    tags: string;
     createTime: Date;
 };

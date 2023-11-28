@@ -5,7 +5,7 @@ const myAxios = axios.create({
     baseURL: 'http://localhost:8080/api',
 });
 
-myAxios.defaults.withCredentials=true;
+myAxios.defaults.withCredentials = true;
 
 // 添加请求拦截器
 myAxios.interceptors.request.use(function (config) {
@@ -31,10 +31,6 @@ myAxios.interceptors.response.use(function (response) {
 }, function (error) {
     // 对响应错误做点什么
     return Promise.reject(error);
-
-
-})
-
-;
+});
 
 export default myAxios;
