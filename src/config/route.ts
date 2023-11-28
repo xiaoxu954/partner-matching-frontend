@@ -10,9 +10,7 @@ import TeamAddPage from "../pages/TeamAddPage.vue";
 import TeamUpdatePage from "../pages/TeamUpdatePage.vue";
 import UserTeamJoinPage from "../pages/UserTeamJoinPage.vue";
 import UserTeamCreatePage from "../pages/UserTeamCreatePage.vue";
-
 //定义一些路由
-
 const routes = [
     {path: '/', component: Index},
     {path: '/team', title: '找队伍', component: TeamPage},
