@@ -20,7 +20,7 @@ const loading = ref(true);
 const loadData = async () => {
   let userListData;
   loading.value = true;
-  //心动模式
+  //匹配模式
   if (isMatchMode.value) {
     const num = 10;
     userListData = await myAxios.get('/user/match', {
@@ -73,7 +73,7 @@ watchEffect(() => {
 
 </script>
 <template>
-  <van-cell center title="心动模式">
+  <van-cell center title="匹配模式">
     <template #right-icon>
       <van-switch v-model="isMatchMode" size="24"/>
     </template>

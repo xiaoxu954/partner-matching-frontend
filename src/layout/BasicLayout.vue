@@ -1,6 +1,6 @@
 <template>
   <van-nav-bar
-      title="这是一个标题"
+      :title="title"
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"

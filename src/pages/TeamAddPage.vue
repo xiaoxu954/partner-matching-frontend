@@ -3,6 +3,7 @@
 import {useRouter} from "vue-router";
 import {ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
+import {DatePicker} from "vant";
 
 const router = useRouter();
 
@@ -22,10 +23,10 @@ const addTeamData = ref({...initFormData});
 const showPicker = ref(false);
 const minDate = new Date();
 
-const onConfirm = () => {
+const onConfirm = ({selectedValues}) => {
+  addTeamData.value.expireTime = Date.parse(selectedValues.join('/'));
   showPicker.value = false;
 };
-
 
 //提交
 const onSubmit = async () => {
@@ -63,32 +64,28 @@ const onSubmit = async () => {
         />
         <van-field
             v-model="addTeamData.description"
-            rows="4"
-            autosize
             label="队伍描述"
             type="textarea"
             placeholder="请输入队伍描述"
         />
         <van-field
-            v-model="addTeamData.expireTime"
+            :v-model="addTeamData.expireTime"
             is-link
-            readonly
             name="datePicker"
             label="过期时间"
-            :placeholder="addTeamData.expireTime  ?? '选择过期时间'"
+            :placeholder="addTeamData.expireTime ?? '点击选择过期时间'"
             @click="showPicker = true"
         />
         <van-popup v-model:show="showPicker" position="bottom">
           <van-date-picker
-              v-model="addTeamData.expireTime"
+              :v-model="addTeamData.expireTime"
               @confirm="onConfirm"
               @cancel="showPicker = false"
               type="datetime"
               title="请选择过期时间"
-              :min-date="minDate"
-          />
-
+              :min-date="minDate"/>
         </van-popup>
+
 
         <van-field name="stepper" label="最大人数">
           <template #input>
@@ -118,7 +115,9 @@ const onSubmit = async () => {
         <van-button round block type="primary" native-type="submit">
           提交
         </van-button>
+
       </div>
+      {{ addTeamData }}
     </van-form>
   </div>
 </template>
