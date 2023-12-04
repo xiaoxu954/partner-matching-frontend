@@ -2,10 +2,19 @@
 
 import {useRouter} from "vue-router";
 import {ref} from "vue";
-import myAxios from "../plugins/myAxios.ts";
-import {DatePicker} from "vant";
+import myAxios from "../plugins/myAxios";
+import {showFailToast, showSuccessToast} from "vant";
+import * as dayjs from 'dayjs'
+
 
 const router = useRouter();
+// 展示日期选择器
+const showPicker = ref(false);
+
+const onConfirm = ({selectedValues}) => {
+  addTeamData.value.expireTime = dayjs(selectedValues.join(',')).format()
+  showPicker.value = false;
+};
 
 const initFormData = {
   "name": "",
@@ -14,45 +23,37 @@ const initFormData = {
   "maxNum": 3,
   "password": "",
   "status": 0,
-
 }
-//用户填写的表单数据
-const addTeamData = ref({...initFormData});
 
-// 展示日期选择器
-const showPicker = ref(false);
 const minDate = new Date();
 
-const onConfirm = ({selectedValues}) => {
-  addTeamData.value.expireTime = Date.parse(selectedValues.join('/'));
-  showPicker.value = false;
-};
+// 需要用户填写的表单数据
+const addTeamData = ref({...initFormData})
 
-//提交
+// 提交
 const onSubmit = async () => {
   const postData = {
     ...addTeamData.value,
     status: Number(addTeamData.value.status)
   }
-
-  //todo 前端数据校验
+  // todo 前端参数校验
   const res = await myAxios.post("/team/add", postData);
   if (res?.code === 0 && res.data) {
-    console.log("添加成功");
+    showSuccessToast('添加成功');
     router.push({
       path: '/team',
       replace: true,
     });
   } else {
-    console.log("添加失败")
+    showFailToast('添加失败');
   }
 }
-
 
 </script>
 
 <template>
-  <div id="teamPage">
+  {{ addTeamData }}
+  <div id="teamAddPage">
     <van-form @submit="onSubmit">
       <van-cell-group inset>
         <van-field
@@ -64,14 +65,16 @@ const onSubmit = async () => {
         />
         <van-field
             v-model="addTeamData.description"
+            rows="4"
+            autosize
             label="队伍描述"
             type="textarea"
             placeholder="请输入队伍描述"
         />
         <van-field
-            :v-model="addTeamData.expireTime"
             is-link
-            name="datePicker"
+            readonly
+            name="datetimePicker"
             label="过期时间"
             :placeholder="addTeamData.expireTime ?? '点击选择过期时间'"
             @click="showPicker = true"
@@ -80,13 +83,11 @@ const onSubmit = async () => {
           <van-date-picker
               :v-model="addTeamData.expireTime"
               @confirm="onConfirm"
-              @cancel="showPicker = false"
               type="datetime"
               title="请选择过期时间"
-              :min-date="minDate"/>
+              :min-date="minDate"
+          />
         </van-popup>
-
-
         <van-field name="stepper" label="最大人数">
           <template #input>
             <van-stepper v-model="addTeamData.maxNum" max="10" min="3"/>
@@ -111,13 +112,12 @@ const onSubmit = async () => {
             :rules="[{ required: true, message: '请填写密码' }]"
         />
       </van-cell-group>
+
       <div style="margin: 16px;">
         <van-button round block type="primary" native-type="submit">
           提交
         </van-button>
-
       </div>
-      {{ addTeamData }}
     </van-form>
   </div>
 </template>

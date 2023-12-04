@@ -1,4 +1,3 @@
-TeamPage.vue
 <script setup lang="ts">
 
 

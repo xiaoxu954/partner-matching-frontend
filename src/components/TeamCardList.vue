@@ -5,6 +5,7 @@ import myAxios from "../plugins/myAxios";
 import {onMounted, ref} from "vue";
 import {getCurrentUser} from "../services/user.ts";
 import {useRouter} from "vue-router";
+import {showFailToast, showSuccessToast} from "vant";
 
 
 interface TeamCardListProps {
@@ -16,25 +17,55 @@ const props = withDefaults(defineProps<TeamCardListProps>(), {
   teamList: [] as TeamType[],
 });
 
+const showPasswordDialog = ref(false);
+
+const joinTeamId = ref();
+const password = ref('')
+
+
 const currentUser = ref();
+
 const router = useRouter();
 
 onMounted(async () => {
   currentUser.value = await getCurrentUser();
-});
+})
+
+
+const preJoinTeam = (team: TeamType) => {
+  joinTeamId.value = team.id;
+  if (team.status === 0) {
+    joinTeamId.value = team.id
+    doJoinTeam();
+  } else {
+    showPasswordDialog.value = true;
+  }
+}
+
+const doJoinCancel = () => {
+  joinTeamId.value = 0;
+  password.value = '';
+}
 
 /**
  * 加入队伍
- * @param id
  */
-const doJoinTeam = async (id: number) => {
+const doJoinTeam = async () => {
+  showPasswordDialog.value = true;
+  if (!joinTeamId.value) {
+    return
+  }
   const res = await myAxios.post("/team/join", {
-    teamId: id
+    teamId: joinTeamId.value,
+    password: password.value,
   });
   if (res?.code === 0) {
-    console.log("加入成功")
+
+    showSuccessToast("加入成功")
+    doJoinCancel();
   } else {
-    console.log("加入失败" + (res.description ? `， ${res.description} ` : ''));
+    showFailToast("加入失败" + (res.description ? `， ${res.description} ` : ''));
+    doJoinCancel();
   }
 }
 
@@ -87,9 +118,7 @@ const doDeleteTeam = async (id: number) => {
 
 <template>
 
-  <div
-      id="teamCardList"
-  >
+  <div id="teamCardList">
     <van-card
         v-for="team in props.teamList"
         :desc="team.description"
@@ -118,7 +147,8 @@ const doDeleteTeam = async (id: number) => {
 
       <template #footer>
         <van-button size="small" type="primary" v-if="team.userId !== currentUser?.id && !team.hasJoin" plain
-                    @click="doJoinTeam(team.id)">加入队伍</van-button>
+                    @click="preJoinTeam(team)">加入队伍
+        </van-button>
 
         <van-button v-if="team.userId === currentUser?.id" size="small" plain
                     @click="doUpdateTeam(team.id)">更新队伍
@@ -134,6 +164,10 @@ const doDeleteTeam = async (id: number) => {
         </van-button>
       </template>
     </van-card>
+    <van-dialog v-model:show="showPasswordDialog" title="请输入密码" show-cancel-button @confirm="doJoinTeam"
+                @cancel="doJoinCancel">
+      <van-field v-model="password" placeholder="请输入密码"/>
+    </van-dialog>
   </div>
 
 </template>

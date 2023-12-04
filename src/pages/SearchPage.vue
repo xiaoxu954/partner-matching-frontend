@@ -66,7 +66,6 @@ const doSearchResult = () => {
     path: '/user/list',
     query: {
       tags: activeIds.value,
-
     }
   })
 }

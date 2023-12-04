@@ -11,7 +11,6 @@ const props = withDefaults(defineProps<UserCardListProps>(), {
   // @ts-ignore
   userList: [] as UserType[],
 });
-
 </script>
 
 <template>
@@ -27,7 +26,6 @@ const props = withDefaults(defineProps<UserCardListProps>(), {
           {{ tag }}
         </van-tag>
       </template>
-
       <template #footer>
         <van-button size="mini">联系我</van-button>
       </template>

@@ -30,7 +30,6 @@ const loadData = async () => {
     })
         .then(function (response) {
           console.log('/user/match succeed', response);
-          console.log('请求成功');
           return response?.data;
         })
         .catch(function (error) {
@@ -47,7 +46,6 @@ const loadData = async () => {
     })
         .then(function (response) {
           console.log('/user/recommend succeed', response);
-          console.log('请求成功');
           return response?.data?.records;
         })
         .catch(function (error) {
