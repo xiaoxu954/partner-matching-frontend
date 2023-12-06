@@ -1,5 +1,5 @@
 <template>
-  <user-card-list :user-list="userList"/>
+  <user-card-list :user-list="userList" :loading="loading"/>
   <!--    <van-card-->
   <!--        v-for="user in userList"-->
   <!--        :desc="`666${user.profile}`"-->
@@ -29,12 +29,13 @@ import UserCardList from "../components/UserCardList.vue";
 const route = useRoute();
 const {tags} = route.query;
 
+const loading = ref(false)
 const userList = ref([]);
 // 使用钩子函数
 onMounted(async () => {
   const userListData = await myAxios.get('/user/search/tags', {
     params: {
-      tagNameList: tags
+      tagNameList: tags,
     },
     paramsSerializer: params => {
       return qs.stringify(params, {indices: false})
@@ -48,7 +49,6 @@ onMounted(async () => {
         console.error('/user/search/tags error', error);
         console.log('请求失败');
       })
-  console.log(userListData)
   if (userListData) {
     userListData.forEach(user => {
       if (user.tags) {

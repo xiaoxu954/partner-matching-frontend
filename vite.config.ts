@@ -1,5 +1,5 @@
 import vue from '@vitejs/plugin-vue';
-import styleImport, {VantResolve} from 'vite-plugin-style-import';
+import styleImport from 'vite-plugin-style-import';
 import {defineConfig} from "vite";
 
 export default defineConfig({
@@ -23,6 +23,6 @@ export default defineConfig({
     //     open: true //启动后是否自动打开浏览器
     // }
     server: {
-        port: 3001,
+        port: 3000,
     }
 })

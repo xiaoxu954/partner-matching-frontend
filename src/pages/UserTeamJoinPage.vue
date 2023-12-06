@@ -8,9 +8,25 @@ import TeamCardList from "../components/TeamCardList.vue";
 
 const router = useRouter();
 
+const active = ref('public')
+
+/**
+ * 切换查询状态
+ * @param name
+ */
+const onTabChange = (name) => {
+  // 查公开
+  if (name === 'public') {
+    listTeam(0);
+  } else {
+    // 查加密
+    listTeam(2);
+  }
+}
+
 const doJoinTeam = () => {
   router.push({
-    path: "/team  "
+    path: "/team"
   })
 }
 const teamList = ref([]);
@@ -19,13 +35,13 @@ const teamText = ref('')
 
 /**
  * 搜索我加入的队伍
- * @param val
+ * @param status
  */
-const listTeam = async (val = '') => {
+const listTeam = async (status = 2) => {
   const res = await myAxios.get('/team/list/my/join', {
     params: {
-      searchText: val,
       pageNum: 1,
+      status,
     },
   });
   if (res?.code === 0) {
@@ -57,8 +73,12 @@ const onSearch = (val) => {
   />
 
   <div id="TeamPage">
-    <van-button type="primary" @click="doJoinTeam">加入队伍</van-button>
+    <van-tabs v-model:active="active" @change="onTabChange">
+      <van-tab title="公开" name="public"/>
+      <van-tab title="加密" name="private"/>
+    </van-tabs>
     <TeamCardList :teamList="teamList"/>
+    <!--    <van-button class="add-button" type="primary" icon="plus" @click="doJoinTeam">加入队伍</van-button>-->
   </div>
   <van-empty v-if="teamList?.length < 1" description="数据为空"/>
 </template>

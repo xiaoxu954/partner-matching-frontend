@@ -6,6 +6,15 @@ const router = useRouter()
 
 const searchText = ref('');
 const originTagList = [{
+  text: '学习语言',
+  children: [
+    {text: 'C', id: 'c'},
+    {text: 'C++', id: 'c++'},
+    {text: 'C#', id: 'c#'},
+    {text: 'Java', id: 'java'},
+    {text: 'Python', id: 'python'},
+  ],
+}, {
   text: '性别',
   children: [
     {text: '男', id: '男'},

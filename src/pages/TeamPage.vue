@@ -25,6 +25,7 @@ const onTabChange = (name) => {
     listTeam(searchText.value, 2);
   }
 }
+
 // 跳转到创建队伍页
 const toAddTeam = () => {
   router.push({

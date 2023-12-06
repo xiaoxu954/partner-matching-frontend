@@ -122,8 +122,10 @@ const doDeleteTeam = async (id: number) => {
     <van-card
         v-for="team in props.teamList"
         :desc="team.description"
-        thumb="null"
+        thumb="/src/assets/study.png"
         :title="`${team.name} `"
+        style="--van-card-thumb-size: 25%;--van-card-thumb-radius:10%"
+
     >
       <template #tags>
         <van-tag plain type="danger" style="margin-right: 8px; margin-top: 8px">
@@ -134,15 +136,14 @@ const doDeleteTeam = async (id: number) => {
       </template>
       <template #bottom>
         <div>
-          {{ '最大人数' + team.maxNum }}
+          {{ `队伍人数: ${team.hasJoinNum} / ${team.maxNum}` }}
         </div>
-        <div>
+        <div v-if="team.expireTime">
           {{ '过期时间' + team.expireTime }}
         </div>
         <div>
           {{ '创建时间' + team.createTime }}
         </div>
-
       </template>
 
       <template #footer>
