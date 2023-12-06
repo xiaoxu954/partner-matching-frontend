@@ -52,7 +52,6 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  {{ addTeamData }}
   <div id="teamAddPage">
     <van-form @submit="onSubmit">
       <van-cell-group inset>

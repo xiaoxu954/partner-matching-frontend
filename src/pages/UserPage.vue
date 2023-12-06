@@ -29,20 +29,17 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
 
 <template v-if="user">
 
-  <van-image
-      round
-      width="10rem"
-      height="10rem"
-      :src="user?.avatarUrl"
-      position="center"
-  />
-
-  <van-cell title="头像" is-link to="/user/edit">
-    <img style="height: 48px" :src="user?.avatarUrl"/>
-  </van-cell>
+  <div style="text-align: center">
+    <van-image
+        round
+        width="10rem"
+        height="10rem"
+        :src="user?.avatarUrl"
+    />
+  </div>
   <van-cell title="当前用户" :value="user?.username"/>
   <van-cell title="账号" :value="user?.userAccount"/>
-  <van-cell title="性别" :value="user?.gender"/>
+  <van-cell title="性别" :value=" user?.gender===0? '男' :'女'"/>
   <van-cell title="电话" :value="user?.phone"/>
   <van-cell title="邮箱" :value="user?.email"/>
   <van-cell title="修改个人信息" is-link to="/user/update"/>

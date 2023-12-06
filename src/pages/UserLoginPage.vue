@@ -33,15 +33,6 @@ const onSubmit = async () => {
 <template>
   <van-form @submit="onSubmit">
 
-    <div style="text-align: center">
-      <van-image
-          round
-          width="10rem"
-          height="10rem"
-          src=""
-      />
-
-    </div>
     <van-cell-group inset>
       <van-field
           v-model="userAccout"
