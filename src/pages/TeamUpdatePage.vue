@@ -3,7 +3,6 @@
 import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
-import * as dayjs from "dayjs";
 
 const router = useRouter();
 const route = useRoute();
@@ -20,6 +19,7 @@ const onConfirm = ({selectedValues}) => {
 
 //需要用户填写的表单数据
 const addTeamData = ref([]);
+
 
 const id = route.query.id;
 
@@ -84,24 +84,24 @@ const onSubmit = async () => {
             placeholder="请输入队伍描述"
         />
         <van-field
+            v-model="addTeamData.expireTime"
             is-link
             readonly
-            name="datetimePicker"
+            name="datePicker"
             label="过期时间"
-            :placeholder="addTeamData.expireTime ?? '点击选择过期时间'"
+            :placeholder="addTeamData.expireTime  ?? '选择过期时间'"
             @click="showPicker = true"
         />
         <van-popup v-model:show="showPicker" position="bottom">
           <van-date-picker
-              :v-model="addTeamData.expireTime"
+              v-model="addTeamData.expireTime"
               @confirm="onConfirm"
+              @cancel="showPicker = false"
               type="datetime"
               title="请选择过期时间"
               :min-date="minDate"
           />
         </van-popup>
-
-
         <van-field name="radio" label="队伍状态">
           <template #input>
             <van-radio-group v-model="addTeamData.status" direction="horizontal">
