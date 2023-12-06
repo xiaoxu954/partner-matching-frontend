@@ -10,10 +10,10 @@ import * as dayjs from 'dayjs'
 const router = useRouter();
 // 展示日期选择器
 const showPicker = ref(false);
+const minDate = new Date();
 
 const onConfirm = ({selectedValues}) => {
   addTeamData.value.expireTime = dayjs(selectedValues.join(',')).format()
-
   showPicker.value = false;
 };
 
@@ -25,8 +25,6 @@ const initFormData = {
   "password": "",
   "status": 0,
 }
-
-const minDate = new Date();
 
 // 需要用户填写的表单数据
 const addTeamData = ref({...initFormData})

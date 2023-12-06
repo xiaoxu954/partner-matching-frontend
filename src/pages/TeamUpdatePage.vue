@@ -11,11 +11,11 @@ const route = useRoute();
 const showPicker = ref(false);
 const minDate = new Date();
 
-
 const onConfirm = ({selectedValues}) => {
   addTeamData.value.expireTime = dayjs(selectedValues.join(',')).format()
   showPicker.value = false;
 };
+
 
 //需要用户填写的表单数据
 const addTeamData = ref([]);
@@ -84,7 +84,6 @@ const onSubmit = async () => {
             placeholder="请输入队伍描述"
         />
         <van-field
-            v-model="addTeamData.expireTime"
             is-link
             readonly
             name="datePicker"
@@ -94,7 +93,7 @@ const onSubmit = async () => {
         />
         <van-popup v-model:show="showPicker" position="bottom">
           <van-date-picker
-              v-model="addTeamData.expireTime"
+              :v-model="addTeamData.expireTime"
               @confirm="onConfirm"
               @cancel="showPicker = false"
               type="datetime"
