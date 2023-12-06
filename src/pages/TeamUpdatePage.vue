@@ -1,16 +1,16 @@
 <script setup lang="ts">
-
 import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
+import * as dayjs from "dayjs";
 
 const router = useRouter();
 const route = useRoute();
 
-
 // 展示日期选择器
 const showPicker = ref(false);
 const minDate = new Date();
+
 
 const onConfirm = ({selectedValues}) => {
   addTeamData.value.expireTime = dayjs(selectedValues.join(',')).format()

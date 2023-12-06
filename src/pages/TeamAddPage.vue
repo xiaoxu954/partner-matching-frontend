@@ -13,6 +13,7 @@ const showPicker = ref(false);
 
 const onConfirm = ({selectedValues}) => {
   addTeamData.value.expireTime = dayjs(selectedValues.join(',')).format()
+
   showPicker.value = false;
 };
 
